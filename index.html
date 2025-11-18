@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Irys Datapunk Game</title>
+
+  <!-- external stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <header class="header">
+  <button id="backHomeBtn" class="back-btn">← Back to Home</button>
+</header>
+
+
+  <!-- MAIN GAME AREA -->
+  <main class="container">
+
+    <!-- GAME CONTROLS -->
+    <section class="controls">
+      <div class="status">Find pairs of Datapunk cards.</div>
+      <div class="score">Score: <span id="score">0</span></div>
+      <div class="level">Level: <span id="level">1</span></div>
+      <div class="timer">Time: <span id="timer">15</span>s</div>
+    </section>
+
+           <!-- LANDING PAGE -->
+    <div id="landing">
+        <div class="bg-flow"></div>
+
+        <!-- TITLE -->
+        <div class="landing-title">
+            <h1>IRYS DATAPUNK CARD</h1>
+        </div>
+
+        <!-- NFT -->
+        <div class="center-card">
+            <img src="images/josh.jpg" class="main-nft" id="tiltNFT" alt="NFT">
+            <button id="startBtn" class="start-btn">START GAME</button>
+        </div>
+    </div>
+
+    <!-- GAME BOARD -->
+    <section id="gameBoard" class="board">
+      <!-- Cards injected via script.js -->
+    </section>
+
+  </main>
+
+  <!-- POPUP -->
+  <div id="popup" class="popup">
+    <div class="popup-box">
+      <h2 id="popupText">Level Complete!</h2>
+      <button id="nextLevelBtn" class="btn">Next Level</button>
+      <button id="restartBtn" class="btn">Restart</button>
+    </div>
+  </div>
+
+  <!-- GAME SCRIPT -->
+  <script src="script.js" defer></script>
+
+  <!-- TILT EFFECT SCRIPT (TARUH DI SINI) -->
+ <script>
+const card = document.getElementById("tiltNFT");
+
+document.addEventListener("mousemove", (e) => {
+    let tiltY = (window.innerWidth / 2 - e.clientX) / 25;
+    let tiltX = (window.innerHeight / 2 - e.clientY) / 25;
+
+    // kirim nilai tilt ke CSS variable
+    card.style.setProperty("--tiltY", tiltY + "deg");
+    card.style.setProperty("--tiltX", tiltX + "deg");
+});
+
+document.addEventListener("mouseleave", () => {
+    card.style.setProperty("--tiltY", "0deg");
+    card.style.setProperty("--tiltX", "0deg");
+});
+</script>
+
+<script>
+document.getElementById("backHomeBtn").onclick = () => {
+    // tampilkan landing page
+    document.getElementById("landing").style.display = "flex";
+
+    // sembunyikan game board
+    document.getElementById("gameBoard").innerHTML = "";
+    document.getElementById("gameBoard").style.display = "none";
+
+    // reset score & timer
+    document.getElementById("score").textContent = 0;
+    document.getElementById("timer").textContent = 15;
+
+    // kalau kamu punya level:
+    document.getElementById("level").textContent = 1;
+};
+</script>
+</body>
+</html>
