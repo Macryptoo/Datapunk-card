@@ -15,6 +15,9 @@
 </head>
 <body>
 
+  <audio id="flipSound" src="sound/flipcard.mp3"></audio>
+
+
   <header class="header">
   <button id="backHomeBtn" class="back-btn">← Back to Home</button>
 </header>
@@ -24,12 +27,12 @@
   <main class="container">
 
     <!-- GAME CONTROLS -->
-    <section class="controls">
-      <div class="status">Find pairs of Datapunk cards.</div>
-      <div class="score">Score: <span id="score">0</span></div>
-      <div class="level">Level: <span id="level">1</span></div>
-      <div class="timer">Time: <span id="timer">15</span>s</div>
-    </section>
+<div class="score-container">
+  <div class="score-box">Score: <span id="score">0</span></div>
+  <div class="score-box">Level: <span id="level">1</span></div>
+  <div class="score-box">Time: <span id="time">15s</span></div>
+</div>
+
 
            <!-- LANDING PAGE -->
     <div id="landing">
@@ -62,6 +65,14 @@
       <button id="restartBtn" class="btn">Restart</button>
     </div>
   </div>
+<!-- FINAL POPUP -->
+<div id="finalPopup" class="final-popup hidden">
+  <div class="final-box">
+      <h1>🎉 CONGRATS! 🎉</h1>
+      <p>You are REAL DATAPUNK!</p>
+      <button id="finalRestart">Play Again</button>
+  </div>
+</div>
 
   <!-- GAME SCRIPT -->
   <script src="script.js" defer></script>

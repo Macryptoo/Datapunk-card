@@ -1,41 +1,47 @@
+/* Cleaned & Organized CSS for Datapunk Game */
+
+/* ========================= */
+/* FONT IMPORT */
+/* ========================= */
 @font-face {
   font-family: "Skrappa";
   src: url("fonts/SKRAPPA-Bold.woff2") format("woff2"),
        url("fonts/SKRAPPA-Bold.ttf") format("truetype");
   font-weight: bold;
-  font-style: bold;
+  font-style: normal;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
 
+:root {
+  --font-skrappa: "Skrappa";
+  --neon: #51ffd6;
+}
+
 /* ========================= */
-/* LANDING PAGE BASE */
+/* GLOBAL */
 /* ========================= */
-#landing {
-  flex-direction: column;
-  text-align: center;
-  padding: 20px;
+body {
+  margin: 0;
+  padding: 0;
+  background: #000;
+  font-family: 'Montserrat', sans-serif;
+  color: var(--neon);
 }
 
-.main-nft {
-  width: 220px;
-  height: auto;
-}
-
-@media (max-width: 600px) {
-  .main-nft {
-    width: 180px;
-  }
-}
-
-
+/* ========================= */
+/* LANDING PAGE */
+/* ========================= */
 #landing {
   position: fixed;
   inset: 0;
-  background: #000;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  padding: 20px;
+  background: #000;
   overflow: hidden;
   z-index: 999;
 }
@@ -43,108 +49,60 @@
 .landing-title {
   position: absolute;
   top: 6%;
-  text-align: center;
   width: 100%;
+  text-align: center;
   z-index: 3;
 }
 
 .landing-title h1 {
   font-family: var(--font-skrappa);
   font-size: 80px;
-  color: #ffffff;
+  color: #fff;
   letter-spacing: 3px;
   margin: 0;
-  display: inline-block;
-  padding: 8px 20px;
-  text-shadow: none;
 }
+
 .landing-title h2 {
-  font-family:var(--font-skrappa);
+  font-family: var(--font-skrappa);
   font-size: 36px;
-  color: #ffffff;
-  opacity: 1;
+  color: #fff;
   letter-spacing: 1px;
 }
 
-:root {
-  --font-skrappa: "Skrappa";
-}
-
-
+/* Main NFT */
 .main-nft {
-  width: 280px;                /* lebih kecil dari 360px */
-  border: 4px solid #51ffd6;   /* neon border */
+  width: 280px;
+  border: 4px solid var(--neon);
   border-radius: 18px;
-  box-shadow: 0 0 25px #51ffd6;  /* glow neon */
-  transition: transform 0.15s ease-out;
-  animation: floatNFT 4s ease-in-out infinite;
+  box-shadow: 0 0 25px var(--neon);
   background: #000;
+  transition: transform 0.1s ease-out;
+  animation: floatNFT 4s ease-in-out infinite;
 }
 
-
-/* ========================= */
-/* CENTER CARD (NFT UTAMA) */
-/* ========================= */
 .center-card {
   position: relative;
-  margin-top: 140px;   /* turun sedikit */
+  margin-top: 140px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
   z-index: 2;
 }
 
-/* NFT utama */
-.main-nft {
-  width: 360px;
-}
-
 @keyframes floatNFT {
-  0%   { transform: translateY(0px) rotateY(var(--tiltY,0deg)) rotateX(var(--tiltX,0deg)); }
-  50%  { transform: translateY(-10px) rotateY(var(--tiltY,0deg)) rotateX(var(--tiltX,0deg)); }
-  100% { transform: translateY(0px) rotateY(var(--tiltY,0deg)) rotateX(var(--tiltX,0deg)); }
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
 }
 
-.main-nft {
-  animation: floatNFT 4s ease-in-out infinite;
-  transition: transform 0.1s ease-out;
-}
-
-
-/* ========================= */
-/* START BUTTON */
-/* ========================= */
-.start-btn {
-  position: absolute;
-  bottom: 40px;
-  padding: 16px 40px;
-  font-size: 20px;
-  font-weight: bold;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-
-  color: #010000;
-  background: #51ffd6;
-  box-shadow: 0 0 20px #51ffd6, 0 0 40px #51ffd6;
-
-  transition: 0.3s;
-}
-
-.start-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 35px #000000, 0 0 70px #000000;
-}
-
-
-/* === NFT LOOP BACKGROUND === */
+/* Background NFT loop */
 .bg-nft-loop {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  z-index: 1;   /* penting: tetap di belakang center-card */
   opacity: 0.22;
+  z-index: 1;
 }
 
 .bg-nft-loop .row {
@@ -162,39 +120,46 @@
   filter: brightness(0.9) saturate(1.2);
 }
 
-/* posisi baris */
-.r1 { position: absolute; top: 8%; }
-.r2 { position: absolute; top: 32%; animation-direction: reverse; }
-.r3 { position: absolute; top: 56%; }
-.r4 { position: absolute; top: 80%; animation-direction: reverse; }
-
-/* animasi geser */
 @keyframes slideRow {
-  0%   { transform: translateX(0); }
+  0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
 
-
-/* ========= HEADER ========= */
-
-body {
-  margin: 0;
-  padding: 0;
-  background: #000000;
-  font-family: 'Montserrat', sans-serif;
-  color: #51ffd6;
+/* ========================= */
+/* BUTTONS */
+/* ========================= */
+.start-btn {
+  position: absolute;
+  bottom: 40px;
+  padding: 16px 40px;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background: var(--neon);
+  color: #000;
+  box-shadow: 0 0 20px var(--neon), 0 0 40px var(--neon);
+  transition: 0.3s;
 }
 
-/* ========= HEADER ========= */
+.start-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 35px #000, 0 0 70px #000;
+}
+
+/* ========================= */
+/* HEADER */
+/* ========================= */
 .header {
   display: flex;
-  justify-content: space-between;   /* kiri — tengah — kanan */
+  justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 18px 28px;
+  padding: 12px 16px;
   background: rgba(255,255,255,0.03);
-  backdrop-filter: blur(8px);
   border-bottom: 1px solid rgba(255,255,255,0.1);
+  backdrop-filter: blur(8px);
   position: fixed;
   top: 0;
   left: 0;
@@ -207,52 +172,28 @@ body {
   transform: translateX(-50%);
   font-size: 20px;
   font-weight: 600;
-  letter-spacing: 1px;
-}
-
-
-.header {
-  padding-left: 50px;   /* header punya padding kiri */
-  padding-right: 24px;
-}
-
-
-.back-btn {
-  display: inline-block;         /* penting: biar lebarnya ikut teks */
-  background: #00f5d4;
-  color: #000;
-  border: none;
-  padding: 8px 16px;             /* lebih compact */
-  font-size: 18px;
-  font-weight: 600;
-  cursor: pointer;
-  border-radius: 8px;
-  box-shadow: 0 0 10px #00f5d4;
-  transition: 0.2s;
-  width: auto;                   /* pastikan tidak memanjang */
-}
-
-
-.back-btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 16px #00f5d4;
-}
-
-.header {
-  padding: 12px 16px;
 }
 
 .back-btn {
   padding: 6px 14px;
-  font-size: 16px;
+  background: #00f5d4;
+  border-radius: 8px;
+  color: #000;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 0 10px #00f5d4;
+  transition: 0.2s;
 }
 
+.back-btn:hover {
+  transform: scale(1.05);
+}
 
+/* Wallet */
 .wallet-btn,
 .wallet-info {
   padding: 10px 18px;
-  background:#51ffd6;
-  border: none;
+  background: var(--neon);
   border-radius: 12px;
   color: #000;
   font-weight: 600;
@@ -264,88 +205,58 @@ body {
   transform: scale(1.05);
 }
 
-.wallet-info {
-  display: none;
-}
+.wallet-info { display: none; }
+#connectBtn { display: none !important; }
 
-/* ========= LAYOUT ========= */
+/* ========================= */
+/* LAYOUT */
+/* ========================= */
 .container {
   padding-top: 120px;
-  width: 100%;
   max-width: 900px;
+  width: 100%;
   margin: auto;
 }
 
-.controls {
+/* Score HUD */
+.score-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 4px;
-  margin-bottom: 20px;
-  font-size: 18px;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 5px;
+  margin-bottom: 40px; /* ini yang membuat kartu turun */
 }
 
 
-
-.wallet-btn,
-.wallet-info {
-  padding: 10px 18px;
-  background:#51ffd6;
-  border: none;
+.score-box {
+  padding: 12px 18px;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--neon);
+  background: rgba(0,255,200,0.12);
   border-radius: 12px;
-  color: #000;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.25s;
+  border: 1px solid rgba(0,255,200,0.4);
+  box-shadow: 0 4px 12px rgba(0,255,200,0.25);
+  transition: 0.2s;
 }
 
-.wallet-btn:hover {
-  transform: scale(1.05);
-}
+.score-box:hover { transform: translateY(-4px); }
 
-.wallet-info {
-  display: none;
-}
-#connectBtn {
-  display: none !important;
-}
-
-/* ========= LAYOUT ========= */
-.container {
-  padding-top: 120px;
-  width: 100%;
-  max-width: 900px;
-  margin: auto;
-}
-
-.controls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 4px;
-  margin-bottom: 20px;
-  font-size: 18px;
-}
-
-.score span,
-.level span,
-.timer span {
-  color: #51ffd6;
-  font-weight: 600;
-}
-
-/* ========= GAME BOARD ========= */
+/* ========================= */
+/* GAME BOARD */
+/* ========================= */
 .board {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 14px;
+  padding: 10px;
 }
 
-/* ========== CARD ========== */
+/* Cards */
 .card {
   width: 100%;
-  height: 230px;
+  height: 139px;
   border-radius: 18px;
   position: relative;
   cursor: pointer;
@@ -353,9 +264,7 @@ body {
   transition: transform 0.5s;
 }
 
-.card:hover {
-  transform: scale(1.05);
-}
+.card:hover { transform: scale(1.05); }
 
 .card-front,
 .card-back {
@@ -369,26 +278,21 @@ body {
   background-position: center;
 }
 
-.card-front {
-  transform: rotateY(180deg);
-}
+.card-front { transform: rotateY(180deg); }
 
 .card-back {
   background-image: url("images/background.jpg");
 }
 
-.card.flipped {
-  transform: rotateY(180deg);
-}
+.card.flipped { transform: rotateY(180deg); }
 
-/* ========= POPUP ========= */
+/* ========================= */
+/* POPUP (LEVEL 1–8)         */
+/* ========================= */
 .popup {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.75);
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75); /* diperbaiki */
   display: none;
   justify-content: center;
   align-items: center;
@@ -400,31 +304,22 @@ body {
   background: #05352c;
   padding: 35px 28px;
   border-radius: 18px;
-  text-align: center;
   width: 320px;
-
+  text-align: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;  /* jarak antara title & tombol */
-}
-
-.popup-box h2 {
-  margin: 0;
-  font-size: 22px;
+  gap: 15px;
+  border: 2px solid #39ffb0; /* biar lebih match neon */
 }
 
 .btn {
   padding: 10px 18px;
-  border: none;
   border-radius: 12px;
   background: linear-gradient(135deg, #39ffb0, #45a0ff);
   color: #000;
   font-weight: 600;
   cursor: pointer;
-  margin-top: 10px;
-  transition: .2s;
+  transition: 0.2s;
 }
 
 .btn:hover {
@@ -435,32 +330,61 @@ body {
   display: none;
 }
 
-/* ========= FOOTER ========= */
+/* FINAL POPUP */
+.final-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 300;
+}
+
+.final-box {
+  background: #05352c;
+  padding: 40px 30px;
+  border-radius: 18px;
+  text-align: center;
+  color: #51ffd6;
+  box-shadow: 0 0 20px #51ffd6;
+}
+
+.hidden {
+  display: none !important;
+}
+
+#finalRestart {
+  padding: 10px 20px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #39ffb0, #45a0ff);
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+/* ========================= */
+/* FOOTER */
+/* ========================= */
 .footer {
   text-align: center;
-  color: rgba(255,255,255,0.5);
   padding: 30px;
   margin-top: 60px;
+  color: rgba(255,255,255,0.5);
   font-size: 14px;
 }
 
- /* MOBILE RESPONSIVE */
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
 @media (max-width: 600px) {
-  .board {
-    gap: 10px;
-    padding: 10px;
-  }
+  .board { gap: 10px; }
   .card {
     width: 80px;
     height: 110px;
   }
-
-  /* Judul landing */
-  .landing-title h1 {
-    font-size: 36px;
-  }
-
-  /* Tombol start */
+  .landing-title h1 { font-size: 36px; }
   .start-btn {
     font-size: 18px;
     padding: 10px 20px;

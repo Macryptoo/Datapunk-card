@@ -21,14 +21,24 @@ let lock = false;
 let firstCard = null;
 let levelScore = 0;
 
+
 const board = document.getElementById("gameBoard");
-const timerBox = document.getElementById("timer");
-const levelBox = document.getElementById("level");
+
 const scoreBox = document.getElementById("score");
+const levelBox = document.getElementById("level");
+const timerBox = document.getElementById("time");
+
 const popup = document.getElementById("popup");
 const popupText = document.getElementById("popupText");
 const nextBtn = document.getElementById("nextLevelBtn");
 const restartBtn = document.getElementById("restartBtn");
+
+const flipSound = document.getElementById("flipSound");
+
+function playFlipSound() {
+  flipSound.currentTime = 0;
+  flipSound.play();
+}
 
 /* =============================
    IMAGES LIST
@@ -51,6 +61,10 @@ const allImages = [
   "images/outlast.jpg",
   "images/tee.jpg",
   "images/zood.jpg",
+  "images/kreko.jpg",
+  "images/pansky.jpg",
+  "images/conal.jpg",
+  "images/satya.jpg",
   "images/mac.jpg"
 ];
 
@@ -147,6 +161,9 @@ function startTimer() {
 function flip(card) {
   if (lock || card.classList.contains("flipped")) return;
 
+  // 🔊 SOUND FLIP
+  playFlipSound();
+
   card.classList.add("flipped");
 
   if (!firstCard) {
@@ -159,18 +176,18 @@ function flip(card) {
   setTimeout(() => {
     if (firstCard.dataset.name === card.dataset.name) {
       // Score total tetap naik
-score++;
-scoreBox.textContent = score;
+      score++;
+      scoreBox.textContent = score;
 
-// Score khusus level
-levelScore++;
+      // Score khusus level
+      levelScore++;
 
-const totalPairs = LEVELS[currentLevel].cards / 2;
+      const totalPairs = LEVELS[currentLevel].cards / 2;
 
-if (levelScore === totalPairs) {
-    clearInterval(countdown);
-    endLevel(true);
-}
+      if (levelScore === totalPairs) {
+        clearInterval(countdown);
+        endLevel(true);
+      }
 
     } else {
       firstCard.classList.remove("flipped");
@@ -182,10 +199,24 @@ if (levelScore === totalPairs) {
   }, 650);
 }
 
+
 /* =============================
    END LEVEL
 ============================= */
 function endLevel(win) {
+
+  const lastLevel = LEVELS.length - 1;
+
+  // LEVEL TERAKHIR (LEVEL 9)
+  if (win && currentLevel === lastLevel) {
+      popup.style.display = "flex";
+      popupText.textContent = "🎉 Congrats! You're a REAL DATAPUNK!";
+      nextBtn.style.display = "none";
+      restartBtn.style.display = "block";
+      return; 
+  }
+
+  // LEVEL BIASA
   popup.style.display = "flex";
 
   if (win) {
@@ -195,27 +226,33 @@ function endLevel(win) {
     popupText.textContent = "Time's Up! Try Again?";
     nextBtn.style.display = "none";
   }
+
+  restartBtn.style.display = "block";
 }
+
 
 nextBtn.onclick = () => {
   popup.style.display = "none";
   currentLevel++;
-  if (currentLevel >= LEVELS.length) currentLevel = 0;
+
   startLevel();
 };
 
+
 restartBtn.onclick = () => {
   popup.style.display = "none";
-  currentLevel = 0;          // balik ke level 1
-  score = 0;                 // reset score total
+
+  currentLevel = 0;      
+  score = 0;             
   scoreBox.textContent = score;
+
   startLevel();
 };
+
 
 document.getElementById("startBtn").onclick = () => {
   document.getElementById("landing").style.display = "none";
 
-  // TAMPILKAN KEMBALI BOARD YANG DISIMPAN BACK BUTTON
   document.getElementById("gameBoard").style.display = "grid";
 
   startLevel();
@@ -224,14 +261,11 @@ document.getElementById("startBtn").onclick = () => {
 
 document.getElementById("backHomeBtn").onclick = () => {
 
-    // tampilkan landing page
     document.getElementById("landing").style.display = "flex";
 
-    // sembunyikan game board
     document.getElementById("gameBoard").innerHTML = "";
     document.getElementById("gameBoard").style.display = "none";
 
-    // reset score & timer
     score = 0;
     currentLevel = 0;
 
@@ -239,11 +273,8 @@ document.getElementById("backHomeBtn").onclick = () => {
     document.getElementById("timer").textContent = LEVELS[0].time;
     document.getElementById("level").textContent = 1;
 
-    // tutup pop-up kalau ada
     document.getElementById("popup").style.display = "none";
 };
-
-
 
 /* =============================
    WALLET CONNECT
